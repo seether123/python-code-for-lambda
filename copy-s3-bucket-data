@@ -1,0 +1,14 @@
+import boto3
+def lambda_handler(event, context):
+    file_name = 'transaction.json' ### file which you want to copy
+    service_name='s3'
+    region_name='us-east-2'
+    s3 = boto3.resource(
+        service_name=service_name,
+        region_name=region_name,
+        )
+    copy_source = {
+        'Bucket': 'jam-source',
+        'Key': file_name
+    }
+    s3.meta.client.copy(copy_source, 'jam-dest',file_name)
