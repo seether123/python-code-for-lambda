@@ -1,0 +1,14 @@
+import json
+import boto3
+
+s3 = boto3.resource('s3')
+
+def lambda_handler(event, context):
+  bucket =  'transaction-store-aws-simplified01'
+  key = 'transaction.json'
+
+  obj = s3.Object(bucket, key)
+  data = obj.get()['Body'].read().decode('utf-8')
+  json_data = json.loads(data)
+
+  print(json_data)
